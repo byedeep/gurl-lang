@@ -6,6 +6,14 @@ export type TokenType =
   | "LET"
   | "CONST"
   | "PLUS"
+  | "IF"
+  | "ELSE"
+  | "GT"
+  | "LT"
+  | "GTE"
+  | "LTE"
+  | "EQEQ"
+  | "NOTEQ"
   | "MINUS"
   | "STAR"
   | "SLASH"
@@ -70,8 +78,10 @@ export class Lexer {
       id += this.current;
       this.advance();
     }
+    if(id === "nvm") return {type:"ELSE", value:id}
+    if (id === "spill") return {type:"IF" , value:id}
     if(id === "say") return {type:"LOG", value:id}
-    if (id === "gtg") return {type: "EOF", value: ""};
+    if (id === "gtg") return {type: "EOF", value: ""}
     if(id === "bestie") return {type:"SOF", value: id}  
     if (id === "periodt") return { type: "CONST" , value : id}
 
@@ -111,6 +121,12 @@ export class Lexer {
       case "{": return { type: "LBRACE", value: "{" };
       case "}": return { type: "RBRACE", value: "}" };
       case ";": return { type: "SEMICOLON", value: ";" };
+      case ">": return {type:"GT", value: ">"};
+      case "<": return {type:"LT", value: "<"};
+      case ">=": return {type:"GTE", value: ">="};
+      case "<=": return {type:"LTE", value: "<="};
+      case "==": return {type:"EQEQ", value: "=="};
+      case "!=": return {type:"NOTEQ", value: "!="};
     }
     throw new Error(`Unexpected character: ${char}`);
   }

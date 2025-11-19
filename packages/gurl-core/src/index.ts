@@ -8,7 +8,11 @@ const code = `
   periodt x = 10 + 20;
   say x * 2;
 
-  say "dev gandu"
+  spill(true){
+    say "hell nah"
+  } nvm {
+   say "vinesh gandu"
+  }
   gtg
 `;
 

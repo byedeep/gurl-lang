@@ -1,6 +1,7 @@
 export type ASTNode =
   | Program
   | LetStatement
+  | IfStatement
   | Identifier
   | NumberLiteral
   | BinaryExpression
@@ -31,6 +32,12 @@ export interface ConstStatement{
     value:ASTNode
 }
 
+export interface IfStatement{
+  type:"IfStatement";
+  condition:ASTNode;
+  thenBranch:ASTNode[];
+  elseBranch:ASTNode[] | null;
+}
 export interface Identifier {
   type: "Identifier";
   name: string;

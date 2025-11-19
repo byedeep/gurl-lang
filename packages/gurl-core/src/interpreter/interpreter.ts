@@ -6,8 +6,11 @@ NumberLiteral,
 StringLiteral,
 Identifier,
 ExpressionStatement,
+IfStatement,
 ASTNode
 } from "../ast/nodes";
+
+import ifStatement from "./functions/ifStatement";
 
 export class Interpreter{
     private env: Record<string,any> = {}
@@ -40,7 +43,10 @@ export class Interpreter{
 
             case "StringLiteral":
                 return node.value;
-            
+
+            case "IfStatement":
+                return ifStatement(node);
+
             case "ExpressionStatement":
                 return this.eval(node.expression)
             

@@ -9,6 +9,7 @@ import {
   BinaryExpression,
   ASTNode,
   LogStatement,
+  IfStatement,
  } from "../ast/nodes";
 
 export class Parser {
@@ -38,6 +39,46 @@ export class Parser {
         return {type: "Program", body}
     }
 
+    parseIfStatement(): IfStatement{
+        this.consume("IF")
+        this.consume("LPAREN")
+        const condition = this.parseExpression()
+        this.consume("RPAREN")
+        
+        this.consume("LBRACE")
+        const thenBranch:ASTNode[] =[];
+        while(this.peek().type !== "RBRACE"){
+            thenBranch.push(this.parseExpression())
+        }
+        this.consume("RBRACE")
+
+        let elseBranch:ASTNode[] = []
+
+        if (this.peek().type == "ELSE"){
+            this.consume("ELSE")
+            this.consume("LBRACE")
+
+            let elseBranch: ASTNode[] = []
+            while(this.peek().type !== "RBRACE"){
+                elseBranch.push(this.parseExpression())
+            }
+            this.consume("RBRACE")
+        }
+        return {
+            type:"IfStatement",
+            condition:condition,
+            elseBranch: elseBranch,
+            thenBranch: thenBranch
+        }
+    }
+
+    parseComparision(): ASTNode {
+        let node = this.parseAddition()
+
+        //complete this function
+        //while(["GT","GTE","LT","LTE","EQEQ","NOTEQ"].)
+    }
+
     parseStatement(): ASTNode {
         if(this.peek().type == "SOF"){
             this.consume("SOF")
@@ -47,6 +88,9 @@ export class Parser {
         }
         if(this.peek().type == "LOG"){
             return this.parseLogStatement()
+        }
+        if(this.peek().type == "IF"){
+            return this.parseIfStatement()
         }
         return this.parseExressionStatement()       
     }
