@@ -75,6 +75,10 @@ export class Interpreter {
         const logVaule = this.eval(node.expression);
         console.log(logVaule);
         return logVaule;
+
+      case "LetStatement":
+        this.env[node.name.name] = this.eval(node.value);
+        return this.env[node.name.name];
     }
   }
 

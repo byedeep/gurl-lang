@@ -99,12 +99,29 @@ export class Parser {
     if (this.peek().type == "LOG") {
       return this.parseLogStatement();
     }
+    if (this.peek().type == "LET") {
+      return this.parseLetStatement();
+    }
     if (this.peek().type == "IF") {
       return this.parseIfStatement();
     }
     return this.parseExressionStatement();
   }
 
+  parseLetStatement(): LetStatement {
+    this.consume("LET");
+
+    const name = this.consume("IDENTIFIER");
+    this.consume("EQUAL");
+    const expr = this.parseExpression();
+    if (this.peek().type === "SEMICOLON") this.consume("SEMICOLON");
+
+    return {
+      type: "LetStatement",
+      name: { type: "Identifier", name: name.value },
+      value: expr,
+    };
+  }
   parseLogStatement(): LogStatement {
     this.consume("LOG");
 
