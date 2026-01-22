@@ -38,6 +38,7 @@
   --font-sans: Poppins, sans-serif;
   --font-serif: Playfair Display, serif;
   --font-mono: Space Mono, monospace;
+  --font-cursive: var(--font-cursive, 'Great Vibes', cursive);
   --radius: 0.5rem;
   --shadow-x: 0px;
   --shadow-y: 3px;
@@ -167,4 +168,41 @@ html {
 body {
   color: var(--foreground);
   background: var(--background);
+}
+
+/* Luxury cursive styling for headings - flat design */
+h1, h2, h3.neon-text,
+.logo-text {
+  font-family: var(--font-cursive), cursive;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  color: var(--primary);
+}
+
+/* Code block styling with reduced spacing */
+code, pre {
+  tab-size: 2;
+  -moz-tab-size: 2;
+}
+
+/* Minimal Devhints-style code blocks */
+pre {
+  background-color: var(--muted);
+  border: none;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 0.75rem 0;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--foreground);
+}
+
+/* Inline code styling */
+code:not(pre code) {
+  background-color: var(--muted);
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
+  font-size: 0.875em;
+  color: var(--foreground);
 }
