@@ -9,7 +9,7 @@
   --card-foreground: oklch(0.4426 0.1653 352.3762);
   --popover: oklch(0.9837 0.0107 339.3288);
   --popover-foreground: oklch(0.4426 0.1653 352.3762);
-  --primary: oklch(0.6726 0.2904 341.41);
+  --primary: oklch(0.6002 0.2414 0.1348);
   --primary-foreground: oklch(1.0000 0 0);
   --secondary: oklch(0.9230 0.0701 326.1273);
   --secondary-foreground: oklch(0.4426 0.1653 352.3762);
@@ -35,10 +35,9 @@
   --sidebar-accent-foreground: oklch(0.4426 0.1653 352.3762);
   --sidebar-border: oklch(0.9311 0.0448 343.3135);
   --sidebar-ring: oklch(0.6002 0.2414 0.1348);
-  --font-sans: Poppins, sans-serif;
+  --font-sans: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-serif: Playfair Display, serif;
   --font-mono: Space Mono, monospace;
-  --font-cursive: var(--font-cursive, 'Great Vibes', cursive);
   --radius: 0.5rem;
   --shadow-x: 0px;
   --shadow-y: 3px;
@@ -56,6 +55,46 @@
   --shadow-2xl: 0px 3px 0px 0px hsl(330 70% 30% / 0.45);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
+
+  /* Design Tokens - mapped from theme */
+  --bg: var(--background);
+  --bg-subtle: var(--card);
+  --text-primary: var(--foreground);
+  --text-muted: var(--muted-foreground);
+  --text-light: var(--muted-foreground);
+  --accent-pink: var(--primary);
+  --accent-pink-hover: oklch(0.5002 0.2414 0.1348);
+  --accent-pink-light: var(--accent);
+  --border-base: var(--border);
+  --border-strong: var(--border);
+  
+  /* Shadow System - Clear depth hierarchy */
+  --shadow-none: none;
+  --shadow-card: var(--shadow-sm);
+  --shadow-elevated: var(--shadow-lg);
+  --shadow-button: var(--shadow-xs);
+  --shadow-button-hover: var(--shadow-md);
+  --shadow-light: var(--shadow-sm);
+  --shadow-medium: var(--shadow-lg);
+  
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  
+  /* Border radius - consistent system */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-card: 12px;
+  --radius-button: 8px;
+  --radius-lg: 16px;
+  
+  /* Typography */
+  --text-h1: clamp(3rem, 8vw, 6rem);
+  --text-h2: clamp(1.75rem, 4vw, 2.5rem);
+  --text-h3: clamp(1.25rem, 3vw, 1.75rem);
+  --font-cursive: 'Great Vibes', cursive;
 }
 
 .dark {
@@ -65,7 +104,7 @@
   --card-foreground: oklch(0.8624 0.1307 326.6356);
   --popover: oklch(0.2398 0.0661 313.2337);
   --popover-foreground: oklch(0.8624 0.1307 326.6356);
-  --primary: oklch(0.6726 0.2904 341.41);
+  --primary: oklch(0.7543 0.2319 332.0212);
   --primary-foreground: oklch(0.1608 0.0493 327.5673);
   --secondary: oklch(0.3184 0.0915 319.6465);
   --secondary-foreground: oklch(0.8624 0.1307 326.6356);
@@ -144,13 +183,16 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
   --shadow-2xs: var(--shadow-2xs);
   --shadow-xs: var(--shadow-xs);
   --shadow-sm: var(--shadow-sm);
@@ -168,15 +210,81 @@ html {
 body {
   color: var(--foreground);
   background: var(--background);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Luxury cursive styling for headings - flat design */
-h1, h2, h3.neon-text,
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Scroll animations - subtle and refined */
+.fade-on-scroll {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), 
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fade-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Typography - refined hierarchy */
+h1, h2, h3,
 .logo-text {
-  font-family: var(--font-cursive), cursive;
-  font-style: italic;
-  letter-spacing: 0.05em;
+  font-family: var(--font-sans);
+  font-style: normal;
+  letter-spacing: -0.02em;
   color: var(--primary);
+}
+
+/* Main title - extra bold */
+h1 {
+  font-weight: 800;
+}
+
+/* Section headings - semibold */
+h2 {
+  font-weight: 600;
+}
+
+/* Card titles - medium weight */
+h3 {
+  font-weight: 500;
+}
+
+/* Body text improvements */
+p {
+  line-height: 1.75;
 }
 
 /* Code block styling with reduced spacing */
@@ -185,24 +293,136 @@ code, pre {
   -moz-tab-size: 2;
 }
 
-/* Minimal Devhints-style code blocks */
+/* Code blocks - dark theme */
 pre {
-  background-color: var(--muted);
+  background-color: #1e1e1e;
   border: none;
-  border-radius: 4px;
-  padding: 1rem;
-  margin: 0.75rem 0;
+  border-radius: var(--radius-card);
+  padding: var(--space-md);
+  margin: var(--space-sm) 0;
   overflow-x: auto;
   font-size: 0.875rem;
-  line-height: 1.6;
-  color: var(--foreground);
+  line-height: 1.7;
+  color: #e5e5e5;
+  font-family: var(--font-mono);
 }
 
 /* Inline code styling */
 code:not(pre code) {
   background-color: var(--muted);
-  padding: 0.125rem 0.375rem;
-  border-radius: 3px;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
   font-size: 0.875em;
   color: var(--foreground);
+}
+
+/* Button base styles */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: var(--radius-button);
+  color: var(--primary-foreground);
+  background: linear-gradient(135deg, var(--primary) 0%, oklch(0.5002 0.2414 0.1348) 100%);
+  box-shadow: var(--shadow-button);
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1),
+              background 200ms ease;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-button-hover);
+  background: linear-gradient(135deg, oklch(0.5002 0.2414 0.1348) 0%, oklch(0.4502 0.2414 0.1348) 100%);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: var(--radius-button);
+  color: var(--primary);
+  background: transparent;
+  border: 2px solid var(--primary);
+  box-shadow: var(--shadow-xs);
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1),
+              background 200ms ease,
+              border-color 200ms ease;
+  cursor: pointer;
+  outline: none;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-button);
+  background: var(--accent);
+  border-color: oklch(0.5002 0.2414 0.1348);
+}
+
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 250ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card), 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Playground container - strongest shadow */
+.playground-container {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Cheatsheet cards - subtle shadows */
+.cheatsheet-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 250ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cheatsheet-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card), 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Footer styling */
+footer {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
 }
