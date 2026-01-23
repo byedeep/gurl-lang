@@ -115,7 +115,7 @@ gtg`)
                 Playground
               </a>
               <a 
-                href="https://github.com"
+                href="https://github.com/byedeep/gurl-lang"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary w-full sm:w-auto text-center"
@@ -126,10 +126,29 @@ gtg`)
             
             {/* Footer Note - Lighter and smaller */}
             <p 
-              className="text-xs fade-in-up" 
+              className="text-sm fade-in-up" 
               style={{ color: 'var(--muted-foreground)' }}
             >
-              Made with 💖
+              Made by{' '}
+              <a 
+                href="https://github.com/VaidehiCodes" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style={{ color: 'var(--primary)', textDecoration: 'none' }}
+                className="hover:underline"
+              >
+                @grg21
+              </a>
+              {' '}and{' '}
+              <a 
+                href="https://github.com/byedeep" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style={{ color: 'var(--primary)', textDecoration: 'none' }}
+                className="hover:underline"
+              >
+                @byedeep
+              </a>
             </p>
           </div>
         </div>
