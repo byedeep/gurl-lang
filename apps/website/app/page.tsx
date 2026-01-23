@@ -16,29 +16,6 @@ gtg`)
   const sectionRefs = useRef<(HTMLElement | null)[]>([])
 
   /* Define custom Monaco theme */
-  const onEditorMount = (monaco: any) => {
-    monaco.editor.defineTheme('kawaii', {
-      base: 'vs-dark',
-      inherit: true,
-      rules: [
-        { token: 'comment', foreground: '857282' },
-        { token: 'string', foreground: 'FFA7C4' },
-        { token: 'keyword', foreground: 'ff709b' },
-        { token: 'number', foreground: 'FFA7C4' },
-        { token: 'operator', foreground: 'FFE175' },
-        { token: 'identifier', foreground: 'FFF0F5' },
-        { token: 'function', foreground: 'FFE175' },
-      ],
-      colors: {
-        'editor.background': '#353042',
-        'editor.foreground': '#FFF0F5',
-        'editor.lineHighlightBackground': '#ff5c8d22',
-        'editorCursor.foreground': '#ffedf0',
-        'editor.selectionBackground': '#ff5c8d44',
-      }
-    });
-    monaco.editor.setTheme('kawaii');
-  };
 
   const runCode = () => {
     // Placeholder for actual code execution
@@ -217,7 +194,7 @@ gtg`)
                   defaultLanguage="javascript"
                   value={playgroundCode}
                   onChange={(value) => setPlaygroundCode(value || '')}
-                  onMount={onEditorMount}
+                  theme="light"
                   options={{
                     minimap: { enabled: false },
                     fontSize: 14,
@@ -243,8 +220,8 @@ gtg`)
                 <div 
                   className="w-full p-4 rounded-lg overflow-auto whitespace-pre-wrap"
                   style={{ 
-                    backgroundColor: '#353042',
-                    color: '#FFF0F5',
+                    backgroundColor: 'var(--muted)',
+                    color: 'var(--foreground)',
                     border: `1px solid var(--border)`,
                     fontFamily: 'var(--font-mono)',
                     fontSize: '0.875rem',
